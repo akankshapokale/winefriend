@@ -1,26 +1,513 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --burgundy: #722F37;
+  --burgundy-dark: #5A1A22;
+  --wine-red: #8B1A2B;
+  --gold: #C5A55A;
+  --gold-muted: #D4B876;
+  --ivory: #FAF7F2;
+  --cream: #F5EDE0;
+  --cream-dark: #EDE4D4;
+  --charcoal: #2A2A2A;
+  --charcoal-light: #4A4A4A;
+  --slate: #6B6B6B;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-burgundy: var(--burgundy);
+  --color-burgundy-dark: var(--burgundy-dark);
+  --color-wine-red: var(--wine-red);
+  --color-gold: var(--gold);
+  --color-gold-muted: var(--gold-muted);
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-light: var(--charcoal-light);
+  --color-slate: var(--slate);
+
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Lenis Smooth Scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Base Styles */
+body {
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings default to serif */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif), Georgia, serif;
+  color: var(--charcoal);
+}
+
+/* Selection */
+::selection {
+  background: var(--burgundy);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--burgundy);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--burgundy-dark);
+}
+
+/* Image fallback gradient backgrounds */
+.img-fallback-wine {
+  background: linear-gradient(135deg, #722F37 0%, #5A1A22 100%);
+}
+
+.img-fallback-cream {
+  background: linear-gradient(135deg, #F5EDE0 0%, #EDE4D4 100%);
+}
+
+.img-fallback-vineyard {
+  background: linear-gradient(135deg, #4A6741 0%, #2A4A2A 50%, #C5A55A 100%);
+}
+
+/* Editorial wine-house styling */
+.wf-section {
+  position: relative;
+  isolation: isolate;
+}
+
+.wf-section::before {
+  position: absolute;
+  z-index: -1;
+  inset: 1.25rem;
+  border: 1px solid rgb(114 47 55 / 7%);
+  content: "";
+  pointer-events: none;
+}
+
+.wf-display-heading {
+  letter-spacing: -0.035em;
+}
+
+.wf-category-card {
+  box-shadow: 0 16px 36px rgb(42 24 20 / 12%);
+  transition: box-shadow 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+}
+
+.wf-category-card:hover {
+  box-shadow: 0 24px 48px rgb(42 24 20 / 20%);
+  transform: translateY(-5px);
+}
+
+.wf-category-image {
+  will-change: transform;
+}
+
+.wf-category-image-reveal {
+  clip-path: inset(0 0 0 0);
+  will-change: clip-path;
+}
+
+.wf-discover-heading h2 {
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.wf-discover-heading > p:last-child {
+  max-width: 44rem;
+  margin-top: 1rem;
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.wf-category-overlay {
+  background: linear-gradient(
+    180deg,
+    rgb(20 13 12 / 0%) 22%,
+    rgb(20 13 12 / 18%) 48%,
+    rgb(20 13 12 / 82%) 100%
+  );
+}
+
+.wf-category-title {
+  color: #fff;
+  text-shadow: 0 2px 14px rgb(0 0 0 / 34%);
+}
+
+.wf-category-description {
+  color: #fffaf2;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 40%);
+}
+
+.wf-category-cta {
+  color: #f1d99f;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wf-category-card .wf-category-overlay {
+    transition: opacity 500ms ease, background-color 500ms ease;
+  }
+
+  .wf-category-card:hover .wf-category-overlay {
+    background-color: rgb(20 13 12 / 9%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  .wf-category-card,
+  .wf-category-card *,
+  .wf-discover-divider {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .wf-category-image {
+    will-change: auto;
+  }
+
+  .wf-category-image-reveal {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .wf-category-card {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+.wf-editorial-image {
+  box-shadow: 18px 18px 0 var(--cream-dark);
+}
+
+.wf-business .wf-editorial-image {
+  box-shadow: -18px 18px 0 #eadfd3;
+}
+
+.wf-tours .wf-editorial-image {
+  box-shadow: 18px 18px 0 #d9c8a4;
+}
+
+.wf-collection .group {
+  border-radius: 0;
+  box-shadow: 0 8px 28px rgb(42 24 20 / 8%);
+}
+
+.wf-product-card {
+  box-shadow: 0 8px 24px rgb(42 24 20 / 7%);
+}
+
+.wf-product-card:hover {
+  box-shadow: 0 18px 36px rgb(42 24 20 / 15%);
+}
+
+.wf-collection .group > div:first-child {
+  background: #eee5d9;
+}
+
+.wf-collection .group h3 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.wf-journal {
+  background-image: radial-gradient(rgb(114 47 55 / 5%) 0.7px, transparent 0.7px);
+  background-size: 12px 12px;
+}
+
+.wf-footer {
+  background-image: linear-gradient(110deg, #4b0b20 0%, #651329 55%, #3c0718 100%);
+}
+
+.wf-footer .text-white\/50 {
+  color: rgb(255 250 242 / 72%);
+}
+
+.wf-footer .text-burgundy {
+  color: #e6c77d;
+}
+
+.wf-cta {
+  isolation: isolate;
+}
+
+.wf-cta .cta-burgundy-overlay {
+  background:
+    linear-gradient(90deg, rgb(66 8 27 / 86%) 0%, rgb(114 31 52 / 73%) 52%, rgb(62 7 25 / 82%) 100%),
+    linear-gradient(0deg, rgb(42 4 18 / 72%) 0%, rgb(74 12 32 / 12%) 68%);
+}
+
+.wf-cta .cta-heading {
+  color: #fff;
+}
+
+.wf-cta .cta-heading-line {
+  display: block;
+  overflow: hidden;
+}
+
+.wf-cta .cta-heading-line-inner {
+  display: block;
+}
+
+.wf-cta .cta-desc {
+  color: #fff6e8;
+  line-height: 1.8;
+}
+
+.wf-cta .wf-cta-button {
+  transition: transform 400ms ease, background-color 400ms ease, color 400ms ease, border-color 400ms ease;
+}
+
+.wf-cta .wf-cta-button:hover {
+  transform: scale(1.025);
+}
+
+.wf-cta .wf-cta-button svg {
+  transition: transform 400ms ease;
+}
+
+.wf-cta .wf-cta-button:hover svg {
+  transform: translateX(5px);
+}
+
+.wf-cta::after {
+  position: absolute;
+  z-index: -1;
+  inset: 1rem;
+  border: 1px solid rgb(230 199 125 / 28%);
+  content: "";
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .wf-section::before {
+    inset: 0.5rem;
+  }
+
+  .wf-editorial-image,
+  .wf-business .wf-editorial-image,
+  .wf-tours .wf-editorial-image {
+    box-shadow: 8px 8px 0 var(--cream-dark);
+  }
+
+  .wf-cta .cta-heading {
+    font-size: clamp(1.85rem, 8vw, 2.5rem);
+  }
+
+  .wf-cta .cta-heading-line {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-cta .wf-cta-button,
+  .wf-cta .wf-cta-button svg {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Hero colors stay explicit so global heading rules cannot reduce contrast. */
+.wine-hero-title {
+  color: #ffffff;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 24%);
+}
+
+.wine-hero-title-accent {
+  color: #ffffff;
+}
+
+.wine-hero-support {
+  color: #ffffff;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 28%);
+}
+
+.wine-hero-overlay {
+  background:
+    linear-gradient(90deg, rgb(22 13 12 / 65%) 0%, rgb(25 15 13 / 52%) 36%, rgb(24 15 13 / 28%) 68%, rgb(24 15 13 / 12%) 100%),
+    linear-gradient(180deg, rgb(22 13 12 / 24%) 0%, transparent 27%, transparent 70%, rgb(22 15 13 / 22%) 100%);
+}
+
+.wine-hero-image {
+  object-position: 62% center;
+  filter: saturate(1.02) contrast(1.06) brightness(0.94);
+  transform: scale(1.035);
+  will-change: transform, filter;
+  transition: filter 0.7s ease;
+}
+
+.wine-hero-content {
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wine-hero-image,
+  .wine-hero-content {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .wine-hero {
+    min-height: 720px;
+    height: 92svh;
+  }
+
+  .wine-hero-content {
+    padding-top: 6rem;
+  }
+
+  .wine-hero-image {
+    object-position: 66% center;
+  }
+
+}
+
+/* Header and navigation */
+.wf-header {
+  background: linear-gradient(90deg, rgb(35 19 20 / 76%), rgb(48 25 23 / 58%) 62%, rgb(42 25 22 / 48%));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
+  transition: background 500ms ease, box-shadow 500ms ease, padding 500ms ease, border-color 500ms ease;
+}
+
+.wf-header-scrolled {
+  background: rgb(250 247 242 / 96%);
+  backdrop-filter: blur(18px);
+  border-bottom-color: rgb(114 47 55 / 9%);
+}
+
+.wf-brand-mark {
+  width: 2.65rem;
+  height: 2.9rem;
+}
+
+.wf-nav-link::after {
+  background: currentColor;
+}
+
+.wf-header-cta {
+  border: 1px solid rgb(255 255 255 / 35%);
+  box-shadow: 0 7px 20px rgb(67 13 26 / 18%);
+  transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
+}
+
+.wf-header-cta:hover {
+  box-shadow: 0 11px 25px rgb(67 13 26 / 25%);
+  transform: translateY(-2px);
+}
+
+.wf-menu-toggle {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.wf-mobile-menu {
+  background: rgb(250 247 242 / 98%);
+  background-image: radial-gradient(rgb(114 47 55 / 5%) 0.7px, transparent 0.7px);
+  background-size: 12px 12px;
+}
+
+.wf-mobile-menu-inner::before {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  width: 3rem;
+  height: 1px;
+  background: var(--gold);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.wf-hero-secondary,
+.hero-btn a {
+  transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease, color 300ms ease;
+}
+
+.hero-btn a:hover {
+  box-shadow: 0 12px 28px rgb(0 0 0 / 22%);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1279px) {
+  .wf-header:not(.wf-header-scrolled) {
+    box-shadow: 0 5px 24px rgb(20 12 12 / 10%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-header,
+  .wf-header-cta,
+  .hero-btn a {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Smooth image loading */
+img[data-loaded="false"] {
+  opacity: 0;
+}
+
+img[data-loaded="true"] {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Horizontal scroll animation for marquee */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+/* Text reveal clip */
+.text-reveal-clip {
+  clip-path: inset(0 0 100% 0);
+}
+
+.text-reveal-clip.revealed {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Gold separator line animation */
+@keyframes expand-line {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
