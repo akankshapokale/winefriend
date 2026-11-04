@@ -53,6 +53,8 @@ export interface ContactInfo {
   location: string;
   phone: string[];
   email: string;
+  contactPerson?: string;
+  hours?: string;
 }
 
 export interface SiteConfig {

@@ -6,26 +6,23 @@ import { gsap, ScrollTrigger } from "@/lib/animations";
 
 import { Container } from "@/components/layout/Container";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { Button } from "@/components/ui/Button";
-import { Divider } from "@/components/ui/Divider";
 import { products } from "@/data/products";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const productDescriptions: Record<string, string> = {
-  "wine-bottle-holder": "A sculptural cradle for bottles worth sharing.",
-  "wine-decanter": "Give every vintage room to breathe and unfold.",
-  "wine-rack": "Keep a thoughtful collection beautifully close at hand.",
-  corkscrew: "A precise, unhurried start to the wine ritual.",
-  "wine-stopper": "Preserve the final glass with quiet elegance.",
-  "barrel-furniture": "A gathering place shaped by wine country tradition.",
+  "wine-bottle-holder": "Bottle holders include the Credle and Banana Stand designs.",
+  "wine-decanter": "Decanters are part of Kamaltara Enterprises’ wine accessory range.",
+  "wine-rack": "The range includes iron racks and wooden, acrylic, and stainless-steel wine stands and racks.",
+  corkscrew: "Wine openers include Kamaltara’s plastic T-type corkscrew.",
+  "wine-stopper": "Cork, wooden, tapered-cork, and plastic PVC bottle stoppers are available.",
+  "barrel-furniture": "Wine-barrel furniture is made from used oak barrels; oak wine barrels are also offered.",
 };
 
 export function CollectionSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const dividerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -35,7 +32,6 @@ export function CollectionSection() {
       const headingParts = headingRef.current?.querySelectorAll<HTMLElement>(
         ".wf-collection-kicker, .wf-collection-title, .wf-collection-description",
       );
-      const dividerParts = dividerRef.current?.children;
       const cards = gsap.utils.toArray<HTMLElement>(".wf-product-card", section);
       const imageFrames = gsap.utils.toArray<HTMLElement>(".wf-product-image-frame", section);
       const images = gsap.utils.toArray<HTMLElement>(".wf-product-image", section);
@@ -58,14 +54,6 @@ export function CollectionSection() {
           0,
         );
       }
-      if (dividerParts?.length) {
-        timeline.fromTo(
-          dividerParts,
-          { autoAlpha: 0, scaleX: 0.7, y: 10 },
-          { autoAlpha: 1, scaleX: 1, y: 0, duration: 0.7, stagger: 0.08 },
-          "-=0.3",
-        );
-      }
       timeline.fromTo(
         cards,
         { autoAlpha: 0, y: 45 },
@@ -85,41 +73,22 @@ export function CollectionSection() {
         "<",
       );
 
-      if (buttonRef.current) {
-        gsap.fromTo(
-          buttonRef.current,
-          { autoAlpha: 0, y: 20 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.65,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: buttonRef.current,
-              start: "top 92%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      }
     },
     { scope: sectionRef },
   );
 
   return (
     <section id="products" ref={sectionRef} className="wf-section wf-collection py-16 lg:py-24 bg-cream">
-      <Container>
+      <GrapevineDecoration className="wf-vine wf-vine--bottom-left" />
+      <Container className="wf-botanical-content">
         <div ref={headingRef} className="wf-collection-header">
           <div>
             <p className="wf-collection-kicker">The art of serving well</p>
             <h2 className="wf-collection-title">Objects for the Wine Ritual</h2>
           </div>
           <p className="wf-collection-description">
-            Thoughtfully selected wine accessories and related products for wine lovers and professionals.
+            The range includes wine and champagne corks, openers, glasses, decanters, preservation systems, wooden, acrylic and stainless-steel stands and racks, used-oak-barrel furniture, and promotional materials. Listed products include the Credle and Banana Stand bottle holders, Kamaltara cork and wooden stoppers, plastic PVC stoppers, a plastic T-type corkscrew, tapered cork stopper, wooden wine box, self-balance stand, iron rack, oak barrels, acrylic photo-frame stand, and green glass ashtray.
           </p>
-        </div>
-        <div ref={dividerRef}>
-          <Divider variant="diamond" className="my-6" />
         </div>
         <div className="wf-collection-grid grid mt-10">
           {products.map((product, index) => (
@@ -130,9 +99,6 @@ export function CollectionSection() {
               description={productDescriptions[product.slug]}
             />
           ))}
-        </div>
-        <div ref={buttonRef} className="flex justify-center mt-8">
-          <Button href="/products" size="lg" className="wf-collection-button">View All Products</Button>
         </div>
       </Container>
     </section>

@@ -6,8 +6,8 @@ import { gsap, ScrollTrigger } from "@/lib/animations";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CategoryCard } from "@/components/ui/CategoryCard";
-import { Divider } from "@/components/ui/Divider";
 import { categories } from "@/data/categories";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -23,7 +23,6 @@ export function DiscoverSection() {
       const kicker = heading?.querySelector<HTMLElement>(".wf-discover-kicker");
       const title = heading?.querySelector<HTMLElement>("h2");
       const description = heading?.querySelector<HTMLElement>(".wf-discover-description");
-      const divider = section.querySelector(".wf-discover-divider");
       const cards = gsap.utils.toArray<HTMLElement>(".wf-category-card", section);
 
       const timeline = gsap.timeline({
@@ -39,8 +38,6 @@ export function DiscoverSection() {
       if (kicker) timeline.fromTo(kicker, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.8");
       if (title) timeline.fromTo(title, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 1.1 }, "-=0.65");
       if (description) timeline.fromTo(description, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.85 }, "-=0.7");
-      if (divider) timeline.fromTo(divider, { scaleX: 0, transformOrigin: "center" }, { scaleX: 1, duration: 0.8 }, "-=0.55");
-
       if (cards.length) {
         timeline.fromTo(
           cards,
@@ -65,16 +62,14 @@ export function DiscoverSection() {
 
   return (
     <section ref={sectionRef} className="wf-section wf-discover py-14 lg:py-20 bg-ivory">
-      <Container>
+      <GrapevineDecoration className="wf-vine wf-vine--top-right" />
+      <Container className="wf-botanical-content">
         <div className="wf-discover-heading">
           <SectionHeading
             kicker="A world of wine, thoughtfully curated"
             heading="Discover the World of Wine Friend"
-            description="Whether you're looking for the perfect wine accessory, sourcing products for your business, or planning a memorable wine experience, Wine Friend is here to help."
+            description="Kamaltara Enterprises manufactures and imports wine accessories, customises products to client requirements, and arranges winery visits and wine tours in Nashik Valley."
           />
-        </div>
-        <div className="wf-discover-divider">
-          <Divider variant="diamond" className="my-10 lg:my-12" />
         </div>
         <div className="wf-category-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {categories.map((category) => (

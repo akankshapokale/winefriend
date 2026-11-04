@@ -3,11 +3,11 @@
 import { Container } from "@/components/layout/Container";
 import { JournalCard } from "@/components/ui/JournalCard";
 import { Button } from "@/components/ui/Button";
-import { Divider } from "@/components/ui/Divider";
 import { FadeUp } from "@/components/animations/FadeUp";
 import { TextReveal } from "@/components/animations/TextReveal";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { journalArticles } from "@/data/journal";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 export function JournalSection() {
   const featured = journalArticles.find((a) => a.featured);
@@ -15,7 +15,8 @@ export function JournalSection() {
 
   return (
     <section id="wine-journal" className="wf-section wf-journal py-14 lg:py-20 bg-cream">
-      <Container>
+      <GrapevineDecoration className="wf-vine wf-vine--bottom-left wf-vine--journal" />
+      <Container className="wf-botanical-content">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <TextReveal>
             <div>
@@ -26,8 +27,8 @@ export function JournalSection() {
                 Stories from the World of Wine
               </h2>
               <p className="text-charcoal-light font-sans text-sm leading-relaxed max-w-lg">
-                Discover stories, insights and experiences that celebrate the
-                world of wine.
+                Stories from Manoj Jagtap and the Wine Friend team, including
+                Nashik winery visits, grape harvesting, and wine events.
               </p>
             </div>
           </TextReveal>
@@ -37,7 +38,6 @@ export function JournalSection() {
             </Button>
           </FadeUp>
         </div>
-        <Divider className="mb-8" />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
           {/* Featured Article */}
           {featured && (

@@ -24,7 +24,7 @@ export function SectionHeading({
       {kicker && (
         <p
           className={`wf-discover-kicker text-[10px] font-sans font-semibold uppercase tracking-[0.15em] mb-2 ${
-            light ? "text-gold" : "text-burgundy"
+            "text-burgundy"
           }`}
         >
           {kicker}

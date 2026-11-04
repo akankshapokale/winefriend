@@ -166,7 +166,31 @@ export function HeroSection() {
     if (vinePaths.length) {
       gsap.to(vinePaths, { strokeDashoffset: 0, duration: 1.9, stagger: .025, ease: "power1.out", delay: .2 });
     }
-    gsap.to(".wf-hero-vine-art", { y: -10, duration: 7, ease: "sine.inOut", yoyo: true, repeat: -1 });
+
+    const vineLeaves = gsap.utils.toArray<SVGGraphicsElement>(".wf-hero-vine-leaf", sectionRef.current);
+    gsap.to(vineLeaves, {
+      rotation: 2.2,
+      duration: 7,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+      stagger: { each: 0.55, from: "random" },
+      transformOrigin: "50% 65%",
+    });
+
+    const grapeCluster = sectionRef.current?.querySelector<SVGGElement>(".wf-hero-grape-cluster");
+    if (grapeCluster) {
+      gsap.to(grapeCluster, {
+        y: -5,
+        rotation: 1.8,
+        scale: 1.025,
+        duration: 6.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+    }
 
     const scrollMotion = gsap.timeline({
       scrollTrigger: {
@@ -178,7 +202,6 @@ export function HeroSection() {
     });
     scrollMotion
       .to(".wf-hero-image-stack", { yPercent: 4, ease: "none" }, 0)
-      .to(".wf-hero-copy", { y: 34, autoAlpha: .45, ease: "none" }, 0)
       .to(".wf-hero-vine-art", { y: 42, ease: "none" }, 0);
 
     return () => {
@@ -275,13 +298,6 @@ export function HeroSection() {
             ))}
           </div>
           <div className="wf-hero-visual-shade" />
-          <div className="wf-hero-visual-caption" aria-live="polite">
-            <span>WINE FRIEND</span>
-            <span>{slides[activeIndex].label}</span>
-          </div>
-          <div className="wf-hero-counter" aria-live="polite" aria-atomic="true">
-            <span>{String(activeIndex + 1).padStart(2, "0")}</span><i />{String(slides.length).padStart(2, "0")}
-          </div>
           <div className="wf-hero-controls">
             <div className="wf-hero-indicators" aria-label="Choose a featured image">
               {slides.map((slide, index) => (
@@ -314,11 +330,11 @@ export function HeroSection() {
             <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M-30 510C125 430 113 300 244 323c92 16 72 130 10 132-47 2-51-61-15-71 24-7 39 18 25 34M201 329c-60-72-53-133-8-166 36 39 38 91 8 166Zm8 4c-3-94 43-136 101-126 2 52-31 100-101 126Zm-14-3c-67-70-127-70-157-29 31 43 83 58 157 29Z" />
               <path d="M240 323c64-60 112-99 170-132m-182 131c-51 5-100 18-150 50m170-30c23 39 55 75 96 111" />
-              <path d="M423 188c-10 39-4 67 22 84 26-17 32-45 22-84-10-23-34-23-44 0Zm22 83v59m-1-33c-27-32-54-37-76-18 13 31 39 42 76 18Zm2-2c26-33 53-39 76-20-12 31-38 43-76 20Z" />
-              <path d="M285 473c37-15 67-14 91 5-17 32-45 43-83 32 20 29 23 57 6 82-31-18-43-46-35-84-28 21-56 25-82 7 15-32 42-46 81-40-24-25-32-52-17-80 34 12 52 37 48 78Zm-18 19 79-14m-67 26 32 52" />
-              <g><circle cx="558" cy="395" r="17"/><circle cx="585" cy="395" r="17"/><circle cx="572" cy="420" r="17"/><circle cx="599" cy="420" r="17"/><circle cx="586" cy="445" r="17"/><circle cx="572" cy="470" r="17"/><path d="M572 378c-5-26 6-43 30-52 3 21-6 39-30 52Zm29-52c17-24 37-28 59-13-13 20-32 25-59 13Z"/></g>
-              <path d="M620 411c84-38 105-91 78-135-42 23-56 64-41 123 34-58 78-70 119-39-25 44-69 61-132 51Zm71-54 66-28m-57 44 65 16" />
-              <path d="M738 572c-61-24-78-65-50-105 43 21 59 57 45 107 31-47 69-56 106-29-21 39-59 54-111 42m9-32 70-13" />
+              <path className="wf-hero-vine-leaf" d="M423 188c-10 39-4 67 22 84 26-17 32-45 22-84-10-23-34-23-44 0Zm22 83v59m-1-33c-27-32-54-37-76-18 13 31 39 42 76 18Zm2-2c26-33 53-39 76-20-12 31-38 43-76 20Z" />
+              <path className="wf-hero-vine-leaf" d="M285 473c37-15 67-14 91 5-17 32-45 43-83 32 20 29 23 57 6 82-31-18-43-46-35-84-28 21-56 25-82 7 15-32 42-46 81-40-24-25-32-52-17-80 34 12 52 37 48 78Zm-18 19 79-14m-67 26 32 52" />
+              <g className="wf-hero-grape-cluster"><circle cx="558" cy="395" r="17"/><circle cx="585" cy="395" r="17"/><circle cx="572" cy="420" r="17"/><circle cx="599" cy="420" r="17"/><circle cx="586" cy="445" r="17"/><circle cx="572" cy="470" r="17"/><path className="wf-hero-vine-leaf" d="M572 378c-5-26 6-43 30-52 3 21-6 39-30 52Zm29-52c17-24 37-28 59-13-13 20-32 25-59 13Z"/></g>
+              <path className="wf-hero-vine-leaf" d="M620 411c84-38 105-91 78-135-42 23-56 64-41 123 34-58 78-70 119-39-25 44-69 61-132 51Zm71-54 66-28m-57 44 65 16" />
+              <path className="wf-hero-vine-leaf" d="M738 572c-61-24-78-65-50-105 43 21 59 57 45 107 31-47 69-56 106-29-21 39-59 54-111 42m9-32 70-13" />
             </g>
           </svg>
         </div>
@@ -333,8 +349,8 @@ export function HeroSection() {
           </h1>
           <p className="wf-hero-tagline">Always in All Ways for Wine Lovers</p>
           <div className="wf-hero-actions">
-            <Button href="/products">Explore Our Products</Button>
-            <Button href="/wine-tours" variant="secondary" className="wf-hero-outline">Discover Wine Experiences</Button>
+            <Button href="/#products">Explore Our Products</Button>
+            <Button href="/#wine-tours" variant="secondary" className="wf-hero-outline">Discover Wine Experiences</Button>
           </div>
         </div>
       </div>

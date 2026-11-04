@@ -12,6 +12,7 @@ import { FadeUp } from "@/components/animations/FadeUp";
 import { TextReveal } from "@/components/animations/TextReveal";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { aboutPillars, aboutContent } from "@/data/about";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -40,7 +41,8 @@ export function AboutSection() {
 
   return (
     <section id="about" ref={sectionRef} className="wf-section wf-about py-14 lg:py-20 bg-ivory">
-      <Container>
+      <GrapevineDecoration className="wf-vine wf-vine--top-right wf-vine--about" variant="champagne" />
+      <Container className="wf-botanical-content">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left – Pillars */}
           <div>

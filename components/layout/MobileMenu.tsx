@@ -3,15 +3,16 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { navigationItems } from "@/data/navigation";
-import { Button } from "@/components/ui/Button";
 import { gsap } from "gsap";
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  activeHref?: string;
+  onNavigate: (href: string) => void;
 }
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, activeHref, onNavigate }: MobileMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   return (
     <div
+      id="wf-mobile-menu"
       ref={menuRef}
       className={`wf-mobile-menu fixed inset-0 z-40 transition-all duration-500 xl:hidden ${
         isOpen
@@ -54,17 +56,18 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <Link
             key={item.label}
             href={item.href}
-            onClick={onClose}
-            className="mobile-nav-link wf-mobile-nav-tours font-serif font-normal text-charcoal hover:text-burgundy transition-colors"
+            onClick={() => {
+              onNavigate(item.href);
+              onClose();
+            }}
+            aria-current={activeHref === item.href ? "page" : undefined}
+            className={`mobile-nav-link wf-mobile-nav-link wf-mobile-nav-tours font-serif font-normal text-charcoal hover:text-gold transition-colors ${
+              activeHref === item.href ? "wf-mobile-nav-link-active" : ""
+            }`}
           >
             {item.label}
           </Link>
         ))}
-        <div className="mobile-nav-link mt-4">
-          <Button href="/#contact" size="lg" onClick={onClose}>
-            Enquire Now
-          </Button>
-        </div>
       </div>
     </div>
   );

@@ -61,10 +61,10 @@ export function JournalCard({ article, featured = false }: JournalCardProps) {
         />
       </div>
       <div className="flex-1 py-1">
-        <h4 className="font-serif text-sm sm:text-base font-semibold text-charcoal group-hover:text-burgundy transition-colors duration-300 mb-1.5 leading-snug">
+        <h4 className="font-serif text-sm sm:text-base font-semibold text-charcoal group-hover:text-gold transition-colors duration-300 mb-1.5 leading-snug">
           {article.title}
         </h4>
-        <span className="inline-flex items-center gap-1.5 text-burgundy font-sans text-[9px] font-semibold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1.5 text-burgundy font-sans text-[9px] font-semibold uppercase tracking-wider">
           Read More
           <ArrowRight className="w-2.5 h-2.5 transition-transform duration-300 group-hover:translate-x-1" />
         </span>

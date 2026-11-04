@@ -1,36 +1,31 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Clock3 } from "lucide-react";
 import { Container } from "./Container";
 import { SocialIcons } from "@/components/ui/SocialIcons";
-import { siteConfig } from "@/data/site";
 import { quickLinks, contactInfo, socialLinks, legalLinks } from "@/data/footer";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 export function Footer() {
   // Use a static year to avoid Next.js prerendering issues with dynamic values
   const currentYear = 2026;
 
   return (
-    <footer className="wf-footer bg-[#4B0B20] text-white pt-16 lg:pt-20 pb-8">
-      <Container>
-        {/* Top border accent */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-gold to-transparent mb-16 -mt-20" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+    <footer className="wf-footer bg-[#24211D] text-white pt-5 lg:pt-6 pb-2">
+      <GrapevineDecoration className="wf-vine wf-vine--bottom-left wf-vine--footer" variant="champagne" />
+      <Container className="wf-botanical-content">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mb-5">
           {/* Brand */}
           <div>
-            <BrandLogo inverse className="mb-4" />
-            <p className="font-sans text-sm text-white/50 italic leading-relaxed">
-              {siteConfig.tagline}
-            </p>
+            <BrandLogo inverse />
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-sans text-sm font-semibold uppercase tracking-wider text-white mb-6">
+            <h4 className="font-sans text-sm font-semibold uppercase tracking-wider text-white mb-3">
               Quick Links
             </h4>
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-2">
               {quickLinks.map((link) => (
                 <Link
                   key={link.label}
@@ -45,35 +40,38 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-sans text-sm font-semibold uppercase tracking-wider text-white mb-6">
+            <h4 className="font-sans text-sm font-semibold uppercase tracking-wider text-white mb-3">
               Contact Us
             </h4>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-burgundy mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-white/50">
+                <MapPin className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                <span className="wf-footer-contact-copy text-sm text-white/50">
                   {contactInfo.location}
                 </span>
               </div>
               <div className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-burgundy mt-0.5 flex-shrink-0" />
-                <div className="flex flex-col gap-1">
+                <Phone className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                <div className="wf-footer-contact-copy flex flex-col gap-1">
+                  {contactInfo.contactPerson && <span className="text-xs text-white/70">{contactInfo.contactPerson}</span>}
                   {contactInfo.phone.map((num) => (
-                    <a
-                      key={num}
-                      href={`tel:${num.replace(/\s/g, "")}`}
-                      className="text-sm text-white/50 hover:text-white transition-colors"
-                    >
+                    <a key={num} href={`tel:${num.replace(/\s/g, "")}`} className="text-sm text-white/50 hover:text-white transition-colors">
                       {num}
                     </a>
                   ))}
                 </div>
               </div>
+              {contactInfo.hours && (
+                <div className="flex items-start gap-3">
+                  <Clock3 className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                  <span className="wf-footer-contact-copy text-xs text-white/50">{contactInfo.hours}</span>
+                </div>
+              )}
               <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-burgundy mt-0.5 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                 <a
                   href={`mailto:${contactInfo.email}`}
-                  className="text-sm text-white/50 hover:text-white transition-colors"
+                  className="wf-footer-contact-copy text-sm text-white/50 hover:text-white transition-colors"
                 >
                   {contactInfo.email}
                 </a>
@@ -83,7 +81,7 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="font-sans text-sm font-semibold uppercase tracking-wider text-white mb-6">
+            <h4 className="font-sans text-sm font-semibold uppercase tracking-wider text-white mb-3">
               Follow Us
             </h4>
             <SocialIcons links={socialLinks} />
@@ -91,19 +89,19 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-white/10 pt-3 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-white/30 font-sans">
             &copy; {currentYear} WineFriend. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {legalLinks.map((link) => (
-              <Link
+              <span
                 key={link.label}
-                href={link.href}
-                className="text-xs text-white/30 hover:text-white/60 transition-colors font-sans"
+                className="text-xs text-white/30 font-sans"
+                aria-disabled="true"
               >
                 {link.label}
-              </Link>
+              </span>
             ))}
           </div>
         </div>

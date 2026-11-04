@@ -6,6 +6,7 @@ import Image from "next/image";
 import { gsap, ScrollTrigger } from "@/lib/animations";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -82,32 +83,33 @@ export function CtaSection() {
       </div>
 
       {/* Content */}
-      <Container className="relative text-center">
+      <GrapevineDecoration className="wf-vine wf-vine--bottom-right wf-vine--cta" variant="champagne" />
+      <Container className="wf-botanical-content relative text-center">
         <div>
           <h2 aria-label="Whatever Your World of Wine Looks Like, We're Here to Help." className="cta-heading font-serif text-3xl sm:text-4xl lg:text-6xl font-normal text-white leading-[1.05] max-w-3xl mx-auto mb-6">
             <span aria-hidden="true" className="cta-heading-line"><span className="cta-heading-line-inner">Whatever Your World</span></span>
             <span aria-hidden="true" className="cta-heading-line"><span className="cta-heading-line-inner">of Wine Looks Like,</span></span>
             <span aria-hidden="true" className="cta-heading-line"><span className="cta-heading-line-inner">We&apos;re Here to Help.</span></span>
           </h2>
-          <p className="cta-desc text-white/75 font-sans text-base leading-7 max-w-2xl mx-auto mb-9">
+          <p className="cta-desc text-white/85 font-sans text-base leading-7 max-w-2xl mx-auto mb-9">
             Looking for wine accessories, customised products for your business,
             or a memorable wine experience?
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <div className="cta-btn">
               <Button
-                href="/products"
+                href="/#products"
                 variant="secondary"
-                className="wf-cta-button border-white/60 text-white hover:bg-white hover:text-burgundy"
+                className="wf-cta-button border-gold/50 text-white hover:bg-gold hover:text-charcoal"
               >
                 Enquire About Products
               </Button>
             </div>
             <div className="cta-btn">
               <Button
-                href="/wine-tours"
+                href="/#wine-tours"
                 variant="secondary"
-                className="wf-cta-button border-gold/60 text-gold hover:bg-gold hover:text-burgundy"
+                className="wf-cta-button border-gold/60 text-gold-muted hover:bg-gold hover:text-charcoal"
               >
                 Plan Your Wine Experience
               </Button>

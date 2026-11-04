@@ -56,7 +56,7 @@ export function SocialIcons({ links, className = "" }: SocialIconsProps) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.platform}
-            className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-white hover:bg-white/10 transition-all duration-300"
+            className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-white/70 hover:text-gold-muted hover:border-gold hover:bg-white/10 transition-all duration-300"
           >
             <Icon className="w-4 h-4" />
           </a>

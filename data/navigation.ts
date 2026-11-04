@@ -15,5 +15,5 @@ export const navigationItems: NavItem[] = [
   { label: "Wine Tours & Experiences", href: "/#wine-tours" },
   { label: "Wine Journal", href: "/#wine-journal" },
   { label: "About Us", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];

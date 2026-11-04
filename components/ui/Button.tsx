@@ -15,10 +15,10 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-burgundy text-white hover:bg-burgundy-dark shadow-sm hover:shadow-md",
+  primary: "bg-gold text-charcoal hover:bg-gold-muted shadow-sm hover:shadow-md",
   secondary:
-    "bg-transparent border border-burgundy text-burgundy hover:bg-burgundy hover:text-white",
-  ghost: "bg-transparent text-burgundy hover:text-burgundy-dark underline-offset-4 hover:underline",
+    "bg-transparent border border-gold/70 text-charcoal hover:bg-gold hover:text-charcoal",
+  ghost: "bg-transparent text-charcoal hover:text-gold underline-offset-4 hover:underline",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

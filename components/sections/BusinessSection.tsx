@@ -6,11 +6,13 @@ import { Button } from "@/components/ui/Button";
 import { FadeUp } from "@/components/animations/FadeUp";
 import { ImageReveal } from "@/components/animations/ImageReveal";
 import { TextReveal } from "@/components/animations/TextReveal";
+import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 export function BusinessSection() {
   return (
     <section id="business-solutions" className="wf-section wf-business py-14 lg:py-20 bg-ivory overflow-hidden">
-      <Container>
+      <GrapevineDecoration className="wf-vine wf-vine--top-left" variant="champagne" />
+      <Container className="wf-botanical-content">
         <div className="wf-editorial-grid grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
           {/* Text Content */}
           <div>
@@ -28,13 +30,12 @@ export function BusinessSection() {
             </TextReveal>
             <FadeUp delay={0.2}>
               <p className="text-charcoal-light font-sans text-base leading-8 mb-7 max-w-xl">
-                At Wine Friend, we understand that every business has different
-                requirements. We supply wine-related products and offer customised
-                solutions. Whether you need bulk orders, corporate gifting, or
-                bespoke wine accessories, we&apos;re here to help your business
-                thrive.
+                Kamaltara Enterprises manufactures and imports wine-related
+                products, with customisation tailored to client specifications
+                and current market trends. The source website lists cash, demand
+                draft, and bank transfer as accepted payment methods.
               </p>
-              <Button href="/business-solutions">
+              <Button href="/contact">
                 Discuss Your Requirements
               </Button>
             </FadeUp>

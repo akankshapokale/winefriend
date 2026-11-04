@@ -21,7 +21,7 @@ export function FeatureIcon({ pillar }: FeatureIconProps) {
         <Icon className="w-5 h-5 text-burgundy transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div>
-        <p className="font-serif text-sm sm:text-base font-medium text-burgundy-dark leading-snug">
+        <p className="font-serif text-sm sm:text-base font-medium text-charcoal leading-snug">
           {pillar.title}
         </p>
         {pillar.description && (

@@ -1,33 +1,36 @@
 import type { AboutPillar } from "@/types";
 
+// Verification needed before publishing an affiliation: the company page names
+// AIWPA, while the Nashik Wine Tours page names Nashik Valley Wine Producers Association.
+
 export const aboutPillars: AboutPillar[] = [
   {
     icon: "building",
     title: "Industry Experience",
-    description: "A trusted partner shaped by deep roots in India’s wine capital.",
+    description: "Founded by Manoj Jagtap, whose work spans wine products and winery tours.",
   },
   {
     icon: "palette",
     title: "Products & Customisation",
-    description: "Thoughtful accessories and tailored gifting for every occasion.",
+    description: "Wine accessories manufactured or imported and customised to client specifications.",
   },
   {
     icon: "users",
     title: "Serving Businesses & Wine Lovers",
-    description: "Considered solutions for hospitality teams and curious enthusiasts.",
+    description: "Wine-related products for businesses and individual wine enthusiasts.",
   },
   {
     icon: "wine",
     title: "Wine Products & Experiences",
-    description: "From everyday rituals to memorable vineyard discoveries.",
+    description: "Personalised winery visits and small-group tours in Nashik Valley.",
   },
 ];
 
 export const aboutContent = {
-  heading: "A Passion for Everything Wine",
-  storyHeading: "Our Story. Our Passion. Your Wine Friend.",
+  heading: "Wine, from Accessories to Experiences",
+  storyHeading: "Founded by Manoj Jagtap in 2004",
   storyText:
-    "Wine Friend is a registered trademark of Kamatara Enterprises, based in Nashik, Maharashtra. We bring together premium wine products, customised business solutions, and unforgettable wine experiences under one trusted name.",
+    "Wine Friend is a registered trademark of Kamaltara Enterprises, based in Nashik, Maharashtra, about 180 km from Mumbai. Founder Manoj Jagtap began in a hospital canteen, moved into mineral-water sales and then worked as a wine-company sales executive. A corkscrew inspired him to develop wine accessories; conversations with customers led him to organise winery visits that grew into structured wine tourism. Kamaltara Enterprises manufactures and imports wine-related products and has operated under Jagtap since 2004.",
   ctaText: "Get to Know Us",
   ctaHref: "/about",
 };
