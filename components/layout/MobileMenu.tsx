@@ -55,13 +55,13 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             key={item.label}
             href={item.href}
             onClick={onClose}
-            className="mobile-nav-link font-serif text-3xl sm:text-4xl font-normal text-charcoal hover:text-burgundy transition-colors"
+            className="mobile-nav-link wf-mobile-nav-tours font-serif font-normal text-charcoal hover:text-burgundy transition-colors"
           >
             {item.label}
           </Link>
         ))}
         <div className="mobile-nav-link mt-4">
-          <Button href="/contact" size="lg" onClick={onClose}>
+          <Button href="/#contact" size="lg" onClick={onClose}>
             Enquire Now
           </Button>
         </div>

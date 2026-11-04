@@ -9,6 +9,7 @@ import { navigationItems } from "@/data/navigation";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { MobileMenu } from "./MobileMenu";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 export function Header() {
   const headerRef = useRef<HTMLElement>(null);
@@ -57,44 +58,13 @@ export function Header() {
         ref={headerRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "wf-header wf-header-scrolled bg-ivory/95 backdrop-blur-xl shadow-[0_8px_30px_rgba(36,18,16,0.08)] py-2"
-            : "wf-header bg-transparent py-4 lg:py-5"
+          ? "wf-header wf-header-scrolled py-2"
+            : "wf-header wf-header-top py-3 lg:py-4"
         }`}
       >
         <Container>
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="wf-brand flex items-center gap-3 shrink-0">
-              <div className={`wf-brand-mark flex items-center justify-center ${scrolled ? "text-burgundy" : "text-cream"}`}>
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-8 h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path d="M12 2C12 2 8 6 8 10c0 2.21 1.79 4 4 4s4-1.79 4-4c0-4-4-8-4-8z" />
-                  <path d="M12 14v8" />
-                  <path d="M9 22h6" />
-                </svg>
-              </div>
-              <div className="leading-none">
-                <div
-                  className={`font-serif text-lg lg:text-xl font-semibold tracking-[0.04em] transition-colors ${
-                    scrolled ? "text-charcoal" : "text-white"
-                  }`}
-                >
-                  WINE FRIEND
-                </div>
-                <div
-                  className={`font-sans text-[7px] uppercase tracking-[0.16em] mt-1 transition-colors hidden sm:block ${
-                    scrolled ? "text-slate" : "text-white/60"
-                  }`}
-                >
-                  Always in All Ways for Wine Lovers
-                </div>
-              </div>
-            </Link>
+            <BrandLogo className="wf-brand shrink-0" />
 
             {/* Desktop Nav */}
             <nav className="wf-desktop-nav hidden xl:flex items-center gap-7 2xl:gap-9">
@@ -105,7 +75,7 @@ export function Header() {
                   className={`wf-nav-link font-serif text-[13px] 2xl:text-sm tracking-[0.015em] transition-colors relative after:absolute after:bottom-[-7px] after:left-0 after:w-0 after:h-px after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap ${
                     scrolled
                       ? "text-charcoal hover:text-burgundy after:bg-burgundy"
-                      : "text-white/90 hover:text-white after:bg-white"
+                      : "text-burgundy-dark hover:text-burgundy after:bg-burgundy"
                   }`}
                 >
                   {item.label}
@@ -116,7 +86,7 @@ export function Header() {
             {/* CTA + Mobile Toggle */}
             <div className="flex items-center gap-3 shrink-0">
               <Button
-                href="/contact"
+                href="/#contact"
                 size="sm"
                 className="wf-header-cta hidden lg:inline-flex"
                 icon={false}
@@ -126,7 +96,7 @@ export function Header() {
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className={`wf-menu-toggle xl:hidden p-2 transition-colors ${
-                  scrolled ? "text-charcoal" : "text-white"
+                  "text-burgundy-dark"
                 }`}
                 aria-label="Toggle menu"
               >

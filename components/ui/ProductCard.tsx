@@ -7,34 +7,33 @@ import type { Product } from "@/types";
 
 interface ProductCardProps {
   product: Product;
+  index: number;
+  description: string;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, index, description }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="wf-product-card group block bg-[#fbf8f3] rounded-none overflow-hidden transition-all duration-500 hover:-translate-y-1"
+      className="wf-product-card group block rounded-none overflow-hidden"
     >
-      <div className="wf-product-image-frame relative aspect-square overflow-hidden bg-cream">
+      <div className="wf-product-image-frame relative aspect-[4/3] overflow-hidden bg-cream">
         <Image
           src={product.image}
           alt={product.name}
           fill
           className="wf-product-image object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+          sizes="(max-width: 479px) 100vw, (max-width: 1023px) 50vw, 33vw"
         />
-        {/* Fallback */}
-        <div className="absolute inset-0 img-fallback-cream -z-10" />
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-burgundy/0 group-hover:bg-burgundy/10 transition-colors duration-500" />
+        <div className="wf-product-image-wash absolute inset-0" />
+        <span className="wf-product-index">{String(index).padStart(2, "0")}</span>
       </div>
-      <div className="p-3 sm:p-4 text-center border-t border-cream-dark/70">
-        <h3 className="font-serif font-medium text-charcoal text-xs sm:text-sm mb-1 group-hover:text-burgundy transition-colors leading-tight">
-          {product.name}
-        </h3>
-        <span className="inline-flex items-center gap-1 text-burgundy font-sans text-[9px] font-semibold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          View Details
-          <ArrowRight className="w-2.5 h-2.5" />
+      <div className="wf-product-card-copy">
+        <h3 className="wf-product-title">{product.name}</h3>
+        <p className="wf-product-description">{description}</p>
+        <span className="wf-product-link">
+          Explore Details
+          <ArrowRight aria-hidden="true" className="wf-product-arrow" />
         </span>
       </div>
     </Link>

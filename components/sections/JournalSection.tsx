@@ -14,7 +14,7 @@ export function JournalSection() {
   const articles = journalArticles.filter((a) => !a.featured);
 
   return (
-    <section className="wf-section wf-journal py-14 lg:py-20 bg-cream">
+    <section id="wine-journal" className="wf-section wf-journal py-14 lg:py-20 bg-cream">
       <Container>
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <TextReveal>

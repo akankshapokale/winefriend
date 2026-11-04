@@ -9,7 +9,7 @@ import { TextReveal } from "@/components/animations/TextReveal";
 
 export function ToursSection() {
   return (
-    <section className="wf-section wf-tours py-14 lg:py-20 bg-cream overflow-hidden">
+    <section id="wine-tours" className="wf-section wf-tours py-14 lg:py-20 bg-cream overflow-hidden">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
           {/* Image (left on desktop) */}

@@ -4,6 +4,7 @@ import { Container } from "./Container";
 import { SocialIcons } from "@/components/ui/SocialIcons";
 import { siteConfig } from "@/data/site";
 import { quickLinks, contactInfo, socialLinks, legalLinks } from "@/data/footer";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 export function Footer() {
   // Use a static year to avoid Next.js prerendering issues with dynamic values
@@ -18,26 +19,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-burgundy flex items-center justify-center">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-5 h-5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path d="M12 2C12 2 8 6 8 10c0 2.21 1.79 4 4 4s4-1.79 4-4c0-4-4-8-4-8z" />
-                  <path d="M12 14v8" />
-                  <path d="M9 22h6" />
-                </svg>
-              </div>
-              <div>
-                <div className="font-serif text-lg font-bold tracking-tight leading-none text-white">
-                  WINE FRIEND
-                </div>
-              </div>
-            </div>
+            <BrandLogo inverse className="mb-4" />
             <p className="font-sans text-sm text-white/50 italic leading-relaxed">
               {siteConfig.tagline}
             </p>

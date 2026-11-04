@@ -9,7 +9,7 @@ import { TextReveal } from "@/components/animations/TextReveal";
 
 export function BusinessSection() {
   return (
-    <section className="wf-section wf-business py-14 lg:py-20 bg-ivory overflow-hidden">
+    <section id="business-solutions" className="wf-section wf-business py-14 lg:py-20 bg-ivory overflow-hidden">
       <Container>
         <div className="wf-editorial-grid grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
           {/* Text Content */}

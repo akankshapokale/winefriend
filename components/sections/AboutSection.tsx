@@ -11,7 +11,7 @@ import { aboutPillars, aboutContent } from "@/data/about";
 
 export function AboutSection() {
   return (
-    <section className="wf-section wf-about py-14 lg:py-20 bg-ivory">
+    <section id="about" className="wf-section wf-about py-14 lg:py-20 bg-ivory">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left – Pillars */}
