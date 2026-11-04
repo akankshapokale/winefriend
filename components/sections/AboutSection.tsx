@@ -1,5 +1,9 @@
 "use client";
 
+import { useRef } from "react";
+import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/animations";
 import { Container } from "@/components/layout/Container";
 import { FeatureIcon } from "@/components/ui/FeatureIcon";
 import { Button } from "@/components/ui/Button";
@@ -9,9 +13,33 @@ import { TextReveal } from "@/components/animations/TextReveal";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { aboutPillars, aboutContent } from "@/data/about";
 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageFrameRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  useGSAP(() => {
+    const frame = imageFrameRef.current;
+    const image = imageRef.current;
+    if (!frame || !image || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const reveal = gsap.timeline({
+      scrollTrigger: {
+        trigger: frame,
+        start: "top 82%",
+        toggleActions: "play none none none",
+      },
+      defaults: { ease: "power2.out" },
+    });
+    reveal
+      .fromTo(frame, { clipPath: "inset(12% 0 0 0)" }, { clipPath: "inset(0 0 0 0)", duration: 1.1 })
+      .fromTo(image, { scale: 1.06 }, { scale: 1, duration: 1.5 }, "<");
+  }, { scope: sectionRef });
+
   return (
-    <section id="about" className="wf-section wf-about py-14 lg:py-20 bg-ivory">
+    <section id="about" ref={sectionRef} className="wf-section wf-about py-14 lg:py-20 bg-ivory">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left – Pillars */}
@@ -32,20 +60,33 @@ export function AboutSection() {
           </div>
 
           {/* Right – Story */}
-          <FadeUp delay={0.2}>
-            <div className="lg:pt-2">
-              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-burgundy mb-5">
-                {aboutContent.storyHeading}
-              </h3>
-              <Divider className="mb-4" />
-              <p className="text-charcoal-light font-sans text-sm leading-relaxed mb-5">
-                {aboutContent.storyText}
-              </p>
-              <Button href={aboutContent.ctaHref} variant="ghost">
-                {aboutContent.ctaText}
-              </Button>
-            </div>
-          </FadeUp>
+          <div className="wf-about-story-column">
+            <FadeUp delay={0.2}>
+              <div className="lg:pt-2">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-burgundy mb-5">
+                  {aboutContent.storyHeading}
+                </h3>
+                <Divider className="mb-4" />
+                <p className="wf-about-story-copy text-charcoal-light font-sans text-sm leading-relaxed mb-5">
+                  {aboutContent.storyText}
+                </p>
+                <Button href={aboutContent.ctaHref} variant="ghost" className="wf-about-cta">
+                  {aboutContent.ctaText}
+                </Button>
+              </div>
+            </FadeUp>
+            <figure ref={imageFrameRef} className="wf-about-editorial-image">
+              <Image
+                ref={imageRef}
+                src="/images/about/wine-cellar.webp"
+                alt="A warmly lit wine cellar lined with wooden racks and bottles"
+                fill
+                sizes="(max-width: 1023px) 100vw, 50vw"
+                className="wf-about-editorial-photo object-cover"
+              />
+              <figcaption>A World Built Around Wine</figcaption>
+            </figure>
+          </div>
         </div>
       </Container>
     </section>

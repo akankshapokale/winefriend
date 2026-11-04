@@ -16,13 +16,20 @@ export function FeatureIcon({ pillar }: FeatureIconProps) {
   const Icon = iconMap[pillar.icon] || Wine;
 
   return (
-    <div className="group flex flex-col items-center text-center gap-3 p-4 rounded-xl hover:bg-cream transition-colors duration-300">
-      <div className="w-14 h-14 rounded-full bg-cream group-hover:bg-burgundy/10 flex items-center justify-center transition-colors duration-300">
-        <Icon className="w-6 h-6 text-burgundy transition-transform duration-300 group-hover:scale-110" />
+    <div className="wf-about-pillar group flex flex-col items-start text-left gap-4 p-4 sm:p-5 transition-colors duration-300">
+      <div className="wf-about-pillar-icon flex items-center justify-center transition-colors duration-300">
+        <Icon className="w-5 h-5 text-burgundy transition-transform duration-300 group-hover:scale-110" />
       </div>
-      <p className="font-sans text-xs sm:text-sm font-medium text-charcoal leading-tight">
-        {pillar.title}
-      </p>
+      <div>
+        <p className="font-serif text-sm sm:text-base font-medium text-burgundy-dark leading-snug">
+          {pillar.title}
+        </p>
+        {pillar.description && (
+          <p className="mt-2 font-sans text-xs leading-relaxed text-charcoal-light">
+            {pillar.description}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
