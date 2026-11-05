@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,24 +10,32 @@ if (typeof window !== "undefined") {
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      smoothWheel: true,
+    let disposed = false;
+    let lenis: import("lenis").default | null = null;
+    let rafCallback: ((time: number) => void) | null = null;
+
+    void import("lenis").then(({ default: Lenis }) => {
+      if (disposed) return;
+
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        smoothWheel: true,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+      rafCallback = (time: number) => lenis?.raf(time * 1000);
+      gsap.ticker.add(rafCallback);
+      gsap.ticker.lagSmoothing(0);
     });
 
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const rafCallback = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(rafCallback);
-    gsap.ticker.lagSmoothing(0);
-
     return () => {
-      gsap.ticker.remove(rafCallback);
-      lenis.destroy();
+      disposed = true;
+      if (rafCallback) gsap.ticker.remove(rafCallback);
+      lenis?.destroy();
     };
   }, []);
 

@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { LenisProvider } from "@/lib/lenis";
 
-const playfair = Playfair_Display({
+const playfair = localFont({
+  src: "../public/fonts/PlayfairDisplay-Variable.ttf",
   variable: "--font-playfair",
-  subsets: ["latin"],
   display: "swap",
+  weight: "400 900",
 });
 
-const inter = Inter({
+const inter = localFont({
+  src: "../public/fonts/Inter-Variable.ttf",
   variable: "--font-inter",
-  subsets: ["latin"],
   display: "swap",
+  weight: "100 900",
 });
 
 const italianno = localFont({

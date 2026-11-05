@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,6 +12,10 @@ import { ImageReveal } from "@/components/animations/ImageReveal";
 
 type ArticlePageProps = { params: Promise<{ slug: string }> };
 
+export function generateStaticParams() {
+  return journalArticles.map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = journalArticles.find((item) => item.slug === slug);
@@ -20,15 +25,25 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   };
 }
 
-export default async function JournalArticlePage({ params }: ArticlePageProps) {
+export default function JournalArticlePage({ params }: ArticlePageProps) {
+  return (
+    <>
+      <Header />
+      <Suspense fallback={<main className="wf-section wf-detail-page bg-ivory py-16 lg:py-24" aria-busy="true" />}>
+        <JournalArticleContent params={params} />
+      </Suspense>
+      <Footer />
+    </>
+  );
+}
+
+async function JournalArticleContent({ params }: ArticlePageProps) {
   const { slug } = await params;
   const article = journalArticles.find((item) => item.slug === slug);
   if (!article) notFound();
 
   return (
-    <>
-      <Header />
-      <main className="wf-section wf-detail-page bg-ivory py-16 lg:py-24">
+    <main className="wf-section wf-detail-page bg-ivory py-16 lg:py-24">
         <Container className="max-w-5xl">
           <Link href="/journal" className="wf-product-link">← Back to the Wine Journal</Link>
           <FadeUp>
@@ -40,8 +55,6 @@ export default async function JournalArticlePage({ params }: ArticlePageProps) {
           </ImageReveal>
           {article.excerpt && <FadeUp><p className="wf-page-lede max-w-3xl">{article.excerpt}</p></FadeUp>}
         </Container>
-      </main>
-      <Footer />
-    </>
+    </main>
   );
 }
