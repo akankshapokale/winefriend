@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock3 } from "lucide-react";
 import { Container } from "./Container";
@@ -5,16 +9,37 @@ import { SocialIcons } from "@/components/ui/SocialIcons";
 import { quickLinks, contactInfo, socialLinks, legalLinks } from "@/data/footer";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
+import { gsap, ScrollTrigger } from "@/lib/animations";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
   // Use a static year to avoid Next.js prerendering issues with dynamic values
   const currentYear = 2026;
 
+  useGSAP(() => {
+    const footer = footerRef.current;
+    if (!footer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const columns = footer.querySelectorAll<HTMLElement>(".wf-footer-main > *");
+    const bottomBar = footer.querySelector<HTMLElement>(".wf-footer-bottom");
+    const reveal = gsap.timeline({
+      scrollTrigger: {
+        trigger: footer,
+        start: "top 92%",
+        once: true,
+      },
+      defaults: { ease: "power3.out" },
+    });
+    reveal.fromTo(columns, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: .65, stagger: .1 });
+    if (bottomBar) reveal.fromTo(bottomBar, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: .45 }, "-=.25");
+  }, { scope: footerRef });
+
   return (
-    <footer className="wf-footer bg-[#24211D] text-white pt-5 lg:pt-6 pb-2">
+    <footer ref={footerRef} className="wf-footer bg-[#24211D] text-white pt-5 lg:pt-6 pb-2">
       <GrapevineDecoration className="wf-vine wf-vine--bottom-left wf-vine--footer" variant="champagne" />
       <Container className="wf-botanical-content">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mb-5">
+        <div className="wf-footer-main grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mb-5">
           {/* Brand */}
           <div>
             <BrandLogo inverse />
@@ -89,7 +114,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-3 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="wf-footer-bottom border-t border-white/10 pt-3 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-white/30 font-sans">
             &copy; {currentYear} WineFriend. All rights reserved.
           </p>

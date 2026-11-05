@@ -14,7 +14,7 @@ export function JournalCard({ article, featured = false }: JournalCardProps) {
   if (featured) {
     return (
       <Link
-        href={`/wine-journal/${article.slug}`}
+        href={`/journal/${article.slug}`}
         className="group block relative overflow-hidden rounded-2xl aspect-[3/4]"
       >
         <div className="absolute inset-0 img-fallback-wine">
@@ -47,7 +47,7 @@ export function JournalCard({ article, featured = false }: JournalCardProps) {
 
   return (
     <Link
-      href={`/wine-journal/${article.slug}`}
+      href={`/journal/${article.slug}`}
       className="group flex gap-4 items-start hover:bg-cream-dark/50 rounded-xl p-2 -m-2 transition-colors duration-300"
     >
       <div className="relative w-20 h-16 sm:w-24 sm:h-20 flex-shrink-0 overflow-hidden rounded-xl">

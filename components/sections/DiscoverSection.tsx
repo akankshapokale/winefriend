@@ -68,7 +68,7 @@ export function DiscoverSection() {
           <SectionHeading
             kicker="A world of wine, thoughtfully curated"
             heading="Discover the World of Wine Friend"
-            description="Kamaltara Enterprises manufactures and imports wine accessories, customises products to client requirements, and arranges winery visits and wine tours in Nashik Valley."
+            description="Wine Friend is a registered trademark of Nashik-based Kamaltara Enterprises, owned and operated by Manoj Jagtap. The company makes and imports wine products and arranges curated Nashik Valley winery visits."
           />
         </div>
         <div className="wf-category-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

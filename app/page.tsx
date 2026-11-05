@@ -8,19 +8,21 @@ import { ToursSection } from "@/components/sections/ToursSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { JournalSection } from "@/components/sections/JournalSection";
 import { CtaSection } from "@/components/sections/CtaSection";
+import { HomeIntro } from "@/components/sections/HomeIntro";
 
 export default function Home() {
   return (
     <>
+      <HomeIntro />
       <Header />
       <main>
         <HeroSection />
         <DiscoverSection />
-        <CollectionSection />
-        <BusinessSection />
-        <ToursSection />
-        <AboutSection />
-        <JournalSection />
+        <CollectionSection preview />
+        <BusinessSection preview />
+        <ToursSection preview />
+        <AboutSection preview />
+        <JournalSection preview />
         <CtaSection />
       </main>
       <Footer />

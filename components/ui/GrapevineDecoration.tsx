@@ -21,6 +21,9 @@ export function GrapevineDecoration({ className, variant = "olive" }: GrapevineD
 
     const leaves = svg.querySelectorAll<SVGGElement>(".wf-grapevine-leaf");
     const cluster = svg.querySelector<SVGGElement>(".wf-grapevine-cluster");
+    const footerBranch = className.includes("wf-vine--footer")
+      ? svg.querySelector<SVGGElement>(".wf-grapevine-branch")
+      : null;
     gsap.to(leaves, {
       rotate: (index) => (index % 2 ? 2.2 : -2.2),
       transformOrigin: "50% 90%",
@@ -44,6 +47,24 @@ export function GrapevineDecoration({ className, variant = "olive" }: GrapevineD
 
     const section = svg.closest("section, footer");
     if (section) {
+      if (footerBranch) {
+        const paths = footerBranch.querySelectorAll<SVGPathElement>("path");
+        paths.forEach((path) => {
+          const length = path.getTotalLength();
+          gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+        });
+        gsap.to(paths, {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          stagger: 0.18,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 88%",
+            once: true,
+          },
+        });
+      }
       gsap.fromTo(
         svg,
         { y: 12 },

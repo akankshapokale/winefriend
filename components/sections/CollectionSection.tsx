@@ -1,28 +1,28 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/animations";
 
 import { Container } from "@/components/layout/Container";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { products } from "@/data/products";
+import { products, productDescriptions } from "@/data/products";
 import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const productDescriptions: Record<string, string> = {
-  "wine-bottle-holder": "Bottle holders include the Credle and Banana Stand designs.",
-  "wine-decanter": "Decanters are part of Kamaltara Enterprises’ wine accessory range.",
-  "wine-rack": "The range includes iron racks and wooden, acrylic, and stainless-steel wine stands and racks.",
-  corkscrew: "Wine openers include Kamaltara’s plastic T-type corkscrew.",
-  "wine-stopper": "Cork, wooden, tapered-cork, and plastic PVC bottle stoppers are available.",
-  "barrel-furniture": "Wine-barrel furniture is made from used oak barrels; oak wine barrels are also offered.",
-};
 
-export function CollectionSection() {
+export function CollectionSection({ preview = false }: { preview?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
+  const visibleProducts = preview ? products.slice(0, 3) : products;
+  const firstProductByCategory = new Map<string, string>();
+  for (const product of products) {
+    if (product.category && !firstProductByCategory.has(product.category)) {
+      firstProductByCategory.set(product.category, product.id);
+    }
+  }
 
   useGSAP(
     () => {
@@ -60,12 +60,14 @@ export function CollectionSection() {
         { autoAlpha: 1, y: 0, duration: 0.75, stagger: 0.12 },
         "-=0.15",
       );
-      timeline.fromTo(
-        imageFrames,
-        { clipPath: "inset(100% 0 0 0)" },
-        { clipPath: "inset(0% 0 0 0)", duration: 0.85, stagger: 0.12 },
-        "-=0.5",
-      );
+      imageFrames.forEach((frame, index) => {
+        timeline.fromTo(
+          frame,
+          { clipPath: index % 2 === 0 ? "inset(100% 0 0 0)" : "inset(0 0 0 100%)" },
+          { clipPath: "inset(0% 0 0 0)", duration: 0.85 },
+          index === 0 ? "-=0.5" : "<0.12",
+        );
+      });
       timeline.fromTo(
         images,
         { scale: 1.08 },
@@ -87,19 +89,34 @@ export function CollectionSection() {
             <h2 className="wf-collection-title">Objects for the Wine Ritual</h2>
           </div>
           <p className="wf-collection-description">
-            The range includes wine and champagne corks, openers, glasses, decanters, preservation systems, wooden, acrylic and stainless-steel stands and racks, used-oak-barrel furniture, and promotional materials. Listed products include the Credle and Banana Stand bottle holders, Kamaltara cork and wooden stoppers, plastic PVC stoppers, a plastic T-type corkscrew, tapered cork stopper, wooden wine box, self-balance stand, iron rack, oak barrels, acrylic photo-frame stand, and green glass ashtray.
+            {preview
+              ? "Wine openers and corks, glassware, decanters, preservation systems, wine racks, barrel furniture, and promotional materials."
+              : "The range includes wine and champagne corks, openers, glasses, decanters, preservation systems, wooden, acrylic and stainless-steel stands and racks, used-oak-barrel furniture, and promotional materials. Listed products include the Credle and Banana Stand bottle holders, Kamaltara cork and wooden stoppers, plastic PVC stoppers, a plastic T-type corkscrew, tapered cork stopper, wooden wine box, self-balance stand, iron rack, oak barrels, acrylic photo-frame stand, and green glass ashtray."}
           </p>
         </div>
+        {!preview && (
+          <nav className="wf-product-category-nav" aria-label="Product categories">
+            <a href="#accessories">Wine Accessories</a>
+            <a href="#storage">Wine Storage</a>
+            <a href="#furniture">Bar Furniture</a>
+          </nav>
+        )}
         <div className="wf-collection-grid grid mt-10">
-          {products.map((product, index) => (
+          {visibleProducts.map((product, index) => (
             <ProductCard
               key={product.id}
               product={product}
               index={index + 1}
               description={productDescriptions[product.slug]}
+              categoryAnchor={firstProductByCategory.get(product.category ?? "") === product.id ? product.category : undefined}
             />
           ))}
         </div>
+        {preview && (
+          <div className="mt-8 text-center">
+            <Link href="/products" className="wf-product-link">View all products <span aria-hidden="true">→</span></Link>
+          </div>
+        )}
       </Container>
     </section>
   );

@@ -8,7 +8,7 @@ import { ImageReveal } from "@/components/animations/ImageReveal";
 import { TextReveal } from "@/components/animations/TextReveal";
 import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
-export function ToursSection() {
+export function ToursSection({ preview = false }: { preview?: boolean }) {
   return (
     <section id="wine-tours" className="wf-section wf-tours py-14 lg:py-20 bg-cream overflow-hidden">
       <GrapevineDecoration className="wf-vine wf-vine--bottom-right" />
@@ -45,8 +45,9 @@ export function ToursSection() {
               </h2>
             </TextReveal>
             <FadeUp delay={0.2}>
-              <p className="text-charcoal-light font-sans text-base leading-8 mb-7 max-w-xl">
-                Nashik Wine Tours arranges personalised small-group outings for
+              <p className={`text-charcoal-light font-sans text-base leading-8 mb-7 max-w-xl ${preview ? "line-clamp-3" : ""}`}>
+                Nashik Valley’s wine country is explored through curated winery
+                visits and personalised small-group outings for
                 10–15 guests. A typical day includes morning tea, lunch, visits
                 to four or five wineries such as Sula Vineyards, York Winery, and
                 Vallee de Vin (Zampa), plus hotel pickup and drop-off. Special

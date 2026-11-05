@@ -10,9 +10,10 @@ interface ProductCardProps {
   product: Product;
   index: number;
   description: string;
+  categoryAnchor?: string;
 }
 
-export function ProductCard({ product, index, description }: ProductCardProps) {
+export function ProductCard({ product, index, description, categoryAnchor }: ProductCardProps) {
   const [added, setAdded] = useState(false);
 
   const addToCart = () => {
@@ -34,7 +35,7 @@ export function ProductCard({ product, index, description }: ProductCardProps) {
   };
 
   return (
-    <article className="wf-product-card group rounded-none overflow-hidden">
+    <article id={categoryAnchor} className="wf-product-card group rounded-none overflow-hidden">
       <Link href={`/products/${product.slug}`} className="block">
         <div className="wf-product-image-frame relative aspect-[4/3] overflow-hidden bg-card">
           <Image

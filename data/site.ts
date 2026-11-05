@@ -4,5 +4,5 @@ export const siteConfig: SiteConfig = {
   name: "Kamaltara Enterprises",
   tagline: "Always in All Ways for Wine Lovers",
   description:
-    "Kamaltara Enterprises is a Nashik-based manufacturer and importer of wine products and organiser of winery tours.",
+    "Wine Friend is a registered trademark of Nashik-based Kamaltara Enterprises, owned and operated by Manoj Jagtap. The company manufactures and imports wine-related products and arranges winery visits and curated tours in Nashik Valley.",
 };

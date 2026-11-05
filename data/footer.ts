@@ -2,9 +2,9 @@ import type { FooterLink, ContactInfo, SocialLink } from "@/types";
 
 export const quickLinks: FooterLink[] = [
   { label: "Products", href: "/products" },
-  { label: "Business Solutions", href: "/#business-solutions" },
+  { label: "Business Solutions", href: "/business-solutions" },
   { label: "Wine Tours & Experiences", href: "/wine-tours" },
-  { label: "Wine Journal", href: "/wine-journal" },
+  { label: "Wine Journal", href: "/journal" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

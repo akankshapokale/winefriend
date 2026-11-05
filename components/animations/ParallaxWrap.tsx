@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/animations";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface ParallaxWrapProps {
   children: React.ReactNode;
@@ -21,29 +19,25 @@ export function ParallaxWrap({
 }: ParallaxWrapProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { y: -speed },
-        {
-          y: speed,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1,
-          },
-        }
-      );
-    });
-
-    return () => ctx.revert();
-  }, [speed]);
+    gsap.fromTo(
+      el,
+      { y: -speed },
+      {
+        y: speed,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      }
+    );
+  }, { scope: ref, dependencies: [speed], revertOnUpdate: true });
 
   return (
     <div ref={ref} className={className}>

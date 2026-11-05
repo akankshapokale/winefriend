@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { LenisProvider } from "@/lib/lenis";
 
@@ -15,9 +16,16 @@ const inter = Inter({
   display: "swap",
 });
 
+const italianno = localFont({
+  src: "../public/Italianno-Regular.ttf",
+  variable: "--font-italianno",
+  display: "swap",
+  weight: "400",
+});
+
 const brandTitle = "Kamaltara Enterprises | Always in All Ways for Wine Lovers";
 const brandDescription =
-  "Always in All Ways for Wine Lovers. Kamaltara Enterprises is a Nashik-based wine product manufacturer and importer founded by Manoj Jagtap in 2004, offering wine accessories, product customisation, business services, and Nashik winery tours.";
+  "Always in All Ways for Wine Lovers. Wine Friend is a registered trademark of Nashik-based Kamaltara Enterprises, owned and operated by Manoj Jagtap. The company manufactures and imports wine products, offers customisation, and arranges Nashik winery tours.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://winefriend.in"),
@@ -71,7 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} antialiased`}
+      className={`${playfair.variable} ${inter.variable} ${italianno.variable} antialiased`}
     >
       <body>
         <LenisProvider>{children}</LenisProvider>

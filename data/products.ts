@@ -44,3 +44,12 @@ export const products: Product[] = [
     category: "furniture",
   },
 ];
+
+export const productDescriptions: Record<string, string> = {
+  "wine-bottle-holder": "Bottle holders include the Credle and Banana Stand designs.",
+  "wine-decanter": "Decanters are part of Kamaltara Enterprises' wine accessory range.",
+  "wine-rack": "The range includes iron racks and wooden, acrylic, and stainless-steel wine stands and racks.",
+  corkscrew: "Wine openers include Kamaltara's plastic T-type corkscrew.",
+  "wine-stopper": "Cork, wooden, tapered-cork, and plastic PVC bottle stoppers are available.",
+  "barrel-furniture": "Wine-barrel furniture is made from used oak barrels; oak wine barrels are also offered.",
+};

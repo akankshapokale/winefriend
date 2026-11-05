@@ -16,7 +16,7 @@ import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export function AboutSection() {
+export function AboutSection({ preview = false }: { preview?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageFrameRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -43,7 +43,7 @@ export function AboutSection() {
     <section id="about" ref={sectionRef} className="wf-section wf-about py-14 lg:py-20 bg-ivory">
       <GrapevineDecoration className="wf-vine wf-vine--top-right wf-vine--about" variant="champagne" />
       <Container className="wf-botanical-content">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="wf-about-grid grid grid-cols-1 lg:grid-cols-2 items-start">
           {/* Left – Pillars */}
           <div>
             <TextReveal>
@@ -52,10 +52,10 @@ export function AboutSection() {
               </h2>
             </TextReveal>
             <StaggerChildren
-              className="grid grid-cols-2 gap-4"
+              className="wf-about-pillars grid grid-cols-1 sm:grid-cols-2 gap-4"
               stagger={0.15}
             >
-              {aboutPillars.map((pillar) => (
+              {(preview ? aboutPillars.slice(0, 2) : aboutPillars).map((pillar) => (
                 <FeatureIcon key={pillar.title} pillar={pillar} />
               ))}
             </StaggerChildren>
@@ -68,8 +68,8 @@ export function AboutSection() {
                 <h3 className="font-serif text-2xl sm:text-3xl font-normal text-burgundy mb-5">
                   {aboutContent.storyHeading}
                 </h3>
-                <Divider className="mb-4" />
-                <p className="wf-about-story-copy text-charcoal-light font-sans text-sm leading-relaxed mb-5">
+                <Divider className="wf-about-divider mb-4" />
+                <p className={`wf-about-story-copy text-charcoal-light font-sans text-sm leading-relaxed mb-5 ${preview ? "line-clamp-4" : ""}`}>
                   {aboutContent.storyText}
                 </p>
                 <Button href={aboutContent.ctaHref} variant="ghost" className="wf-about-cta">

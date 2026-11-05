@@ -5,7 +5,7 @@ export const categories: Category[] = [
     id: "wine-products",
     title: "Wine Products & Accessories",
     description:
-      "Wine and champagne corks, openers, glasses, decanters, preservation systems, bottle holders, racks and wine-barrel furniture.",
+      "Wine and champagne corks, openers, glasses, decanters, preservation systems, bottle holders, wooden, acrylic and stainless-steel racks, wine-barrel furniture, and promotional materials.",
     image: "/images/categories/wine-accessories-display.webp",
     ctaText: "Explore Products",
     ctaHref: "/products",
@@ -17,13 +17,13 @@ export const categories: Category[] = [
       "Kamaltara Enterprises manufactures and imports wine-related products, with customisation to client specifications and market trends.",
     image: "/images/categories/business-wine-gifting.webp",
     ctaText: "Partner With Us",
-    ctaHref: "/#business-solutions",
+      ctaHref: "/business-solutions",
   },
   {
     id: "wine-tours",
     title: "Wine Tours & Experiences",
     description:
-      "Personalised small-group tours visit 4–5 Nashik wineries, with hotel pickup and drop-off.",
+      "Curated winery visits and wine tours offer a way to explore the vineyards and wine country of Nashik Valley.",
     image: "/images/categories/nashik-countryside.webp",
     ctaText: "Explore Experiences",
     ctaHref: "/wine-tours",

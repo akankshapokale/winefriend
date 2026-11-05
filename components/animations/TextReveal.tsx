@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/animations";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface TextRevealProps {
   children: React.ReactNode;
@@ -21,35 +19,28 @@ export function TextReveal({
 }: TextRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const el = ref.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          clipPath: "inset(0 0 100% 0)",
-          y: 20,
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.fromTo(
+      el,
+      { opacity: 0, clipPath: "inset(0 0 100% 0)", y: 20 },
+      {
+        opacity: 1,
+        clipPath: "inset(0 0 0% 0)",
+        y: 0,
+        duration: 1,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
         },
-        {
-          opacity: 1,
-          clipPath: "inset(0 0 0% 0)",
-          y: 0,
-          duration: 1,
-          delay,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-
-    return () => ctx.revert();
-  }, [delay]);
+      }
+    );
+  }, { scope: ref, dependencies: [delay], revertOnUpdate: true });
 
   return (
     <div ref={ref} className={className}>

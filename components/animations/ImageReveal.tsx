@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/animations";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface ImageRevealProps {
   children: React.ReactNode;
@@ -21,9 +19,9 @@ export function ImageReveal({
 }: ImageRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const clipPaths: Record<string, { from: string; to: string }> = {
       left: {
         from: "inset(0 100% 0 0)",
@@ -45,44 +43,19 @@ export function ImageReveal({
 
     const { from, to } = clipPaths[direction];
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { clipPath: from },
-        {
-          clipPath: to,
-          duration: 1.2,
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-
-      // Inner image scale
-      const img = el.querySelector("img, .img-inner");
-      if (img) {
-        gsap.fromTo(
-          img,
-          { scale: 1.3 },
-          {
-            scale: 1,
-            duration: 1.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
+    const reveal = gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start: "top 80%",
+        toggleActions: "play none none none",
+        once: true,
+      },
     });
+    reveal.fromTo(el, { clipPath: from }, { clipPath: to, duration: 1.2, ease: "power3.inOut" });
 
-    return () => ctx.revert();
-  }, [direction]);
+    const img = el.querySelector("img, .img-inner");
+    if (img) reveal.fromTo(img, { scale: 1.08 }, { scale: 1, duration: 1.35, ease: "power3.out" }, 0);
+  }, { scope: ref, dependencies: [direction], revertOnUpdate: true });
 
   return (
     <div ref={ref} className={className}>

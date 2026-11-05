@@ -98,7 +98,7 @@ export function CtaSection() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <div className="cta-btn">
               <Button
-                href="/#products"
+                href="/products"
                 variant="secondary"
                 className="wf-cta-button border-gold/50 text-white hover:bg-gold hover:text-charcoal"
               >
@@ -107,7 +107,7 @@ export function CtaSection() {
             </div>
             <div className="cta-btn">
               <Button
-                href="/#wine-tours"
+                href="/wine-tours"
                 variant="secondary"
                 className="wf-cta-button border-gold/60 text-gold-muted hover:bg-gold hover:text-charcoal"
               >

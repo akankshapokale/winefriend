@@ -19,6 +19,14 @@ export const journalArticles: JournalArticle[] = [
     slug: "behind-the-indian-wine-experience",
   },
   {
+    id: "6",
+    title: "A Conversation That Needed to Happen",
+    excerpt:
+      "A WineFriend journal feature about the story of wine tourism in India, framed by a conversation between Hansraj Ahuja and Manoj Jagtap.",
+    image: "/images/journal/indian-wine-experience.webp",
+    slug: "a-conversation-that-needed-to-happen",
+  },
+  {
     id: "3",
     title: "A Grape Harvesting Adventure",
     excerpt:

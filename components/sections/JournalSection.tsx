@@ -9,9 +9,11 @@ import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { journalArticles } from "@/data/journal";
 import { GrapevineDecoration } from "@/components/ui/GrapevineDecoration";
 
-export function JournalSection() {
+export function JournalSection({ preview = false }: { preview?: boolean }) {
   const featured = journalArticles.find((a) => a.featured);
-  const articles = journalArticles.filter((a) => !a.featured);
+  const allArticles = journalArticles.filter((a) => !a.featured);
+  const previewSlugs = new Set(["behind-the-indian-wine-experience", "a-conversation-that-needed-to-happen"]);
+  const articles = preview ? allArticles.filter((article) => previewSlugs.has(article.slug)) : allArticles;
 
   return (
     <section id="wine-journal" className="wf-section wf-journal py-14 lg:py-20 bg-cream">
@@ -33,8 +35,8 @@ export function JournalSection() {
             </div>
           </TextReveal>
           <FadeUp delay={0.2} className="shrink-0">
-            <Button href="/wine-journal" variant="ghost">
-              Explore the Wine Journal
+            <Button href="/journal" variant="ghost">
+              {preview ? "View All Journal Stories" : "Explore the Wine Journal"}
             </Button>
           </FadeUp>
         </div>

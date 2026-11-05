@@ -1,7 +1,6 @@
 import type { AboutPillar } from "@/types";
 
-// Verification needed before publishing an affiliation: the company page names
-// AIWPA, while the Nashik Wine Tours page names Nashik Valley Wine Producers Association.
+// Do not publish an AIWPA membership claim until active membership is independently verified.
 
 export const aboutPillars: AboutPillar[] = [
   {
@@ -28,9 +27,9 @@ export const aboutPillars: AboutPillar[] = [
 
 export const aboutContent = {
   heading: "Wine, from Accessories to Experiences",
-  storyHeading: "Founded by Manoj Jagtap in 2004",
+  storyHeading: "From Wine Accessories to Wine Tourism",
   storyText:
-    "Wine Friend is a registered trademark of Kamaltara Enterprises, based in Nashik, Maharashtra, about 180 km from Mumbai. Founder Manoj Jagtap began in a hospital canteen, moved into mineral-water sales and then worked as a wine-company sales executive. A corkscrew inspired him to develop wine accessories; conversations with customers led him to organise winery visits that grew into structured wine tourism. Kamaltara Enterprises manufactures and imports wine-related products and has operated under Jagtap since 2004.",
+    "Wine Friend is a registered trademark of Kamaltara Enterprises, based in Nashik, Maharashtra, about 180 km from Mumbai. Owner-operator Manoj Jagtap began in a hospital canteen, moved into mineral-water sales and then worked as a wine-company sales executive. A corkscrew inspired him to develop wine accessories; conversations with customers led him to organise winery visits that grew into structured wine tourism. Kamaltara Enterprises manufactures and imports wine-related products and arranges curated visits in Nashik Valley.",
   ctaText: "Get to Know Us",
   ctaHref: "/about",
 };
